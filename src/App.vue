@@ -12,13 +12,18 @@
       elect a 'dictator' to operate the protocol. Whenever the DAO isn't happy,
       they can simply elect a new 'dictator'.
     </p>
+    <create-dao></create-dao>
+
     <Web3 :info="web3">
       <template v-slot:none>
         No web3 provider was found. Please use MetaMask.
       </template>
       <template v-slot:connect>
-        <button @click="web3.connect">Connect Metamask</button>
+        <button class="btn btn-primary" @click="web3.connect">
+          Connect Metamask
+        </button>
       </template>
+
       <table class="table mx-auto text-start" style="width: 600px">
         <tr>
           <td>Name</td>
@@ -47,12 +52,14 @@
 
 <script lang="ts">
 import { defineComponent, Ref, ref } from "vue";
+import CreateDao from "./components/CreateDao.vue";
 import Web3, { EmptyProviderInfo, ProviderInfo } from "./components/Web3.vue";
 
 export default defineComponent({
   name: "App",
   components: {
     Web3,
+    CreateDao,
   },
   setup: () => {
     const web3: Ref<ProviderInfo> = ref(EmptyProviderInfo);
