@@ -20,20 +20,39 @@
       <input type="text" v-model="shareName" class="form-control" id="inputShareName" />
     </div>
   </form>
-  <button class="btn btn-primary">Create DAO!</button>
+  <button class="btn btn-primary" @click="create">Create DAO!</button>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { ethers } from "ethers";
+import { defineComponent, PropType } from "vue";
+import * as dao_abi from "../assets/DictatorDAO.json"
+import { ProviderInfo } from "./Web3.vue.__VLS_script";
 
 export default defineComponent({
   name: "CreateDao",
-  props: {},
+  props: {
+    info: {
+      type: Object as PropType<ProviderInfo>,
+      required: true
+    }
+  },
+  methods: {
+    create: function() {
+      const interface_ = new ethers.utils.Interface(dao_abi.abi)
+      const signer = window.provider?.getSigner(this.info.address)
+      console.log(signer)
+      const factory = new ethers.ContractFactory(interface_, dao_abi.bytecode, window.provider?.getSigner(0))
+      console.log(factory)
+      factory.deploy(this.tokenSymbol, this.tokenName, this.shareSymbol, this.shareName, this.info.address)
+    }
+  },
   setup: () => {
     const tokenSymbol = "UCT"
     const tokenName = "Umbrella Corporation Token"
     const shareSymbol = "UCS"
     const shareName = "Umbrella Corporation Share"
+    console.log(dao_abi)
     return {
       tokenSymbol,
       tokenName,

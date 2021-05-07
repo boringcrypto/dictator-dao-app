@@ -8,7 +8,7 @@
 
 <script lang="ts">
 declare global {
-  interface Window { 
+  interface Window {
     ethereum: any;
     provider?: ethers.providers.Web3Provider
   }
@@ -36,7 +36,7 @@ export const EmptyProviderInfo: ProviderInfo = {
   chainId: 0,
   address: "",
   block: 0,
-  connect: function() { if (this.connected) { window.ethereum?.enable() }}
+  connect: function() { if (this.connected) { window.ethereum?.enable() } }
 }
 
 export default defineComponent({
@@ -95,12 +95,12 @@ export default defineComponent({
 
       props.info.connected = window.ethereum.isConnected()
       if (props.info.connected) {
-        handleConnect({chainId: window.ethereum.chainId})
+        handleConnect({ chainId: window.ethereum.chainId })
       }
     } else {
       props.info.name = "None";
     }
-    return { }
+    return {}
   }
 })
 </script>
