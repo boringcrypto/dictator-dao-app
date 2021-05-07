@@ -2,7 +2,9 @@
   <div v-if="loading == true">Loading...</div>
   <div v-else>
     <h1>DAO Page</h1>
-    {{ address }} {{ totalSupply.toString() }}
+    Address: {{ address }}
+    <br />
+    Supply: {{ totalSupply.toString() }}
   </div>
 </template>
 
